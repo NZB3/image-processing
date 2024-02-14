@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN npm update -g npm
+
 RUN npm install
 
 RUN npm run build
