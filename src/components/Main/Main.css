@@ -1,0 +1,13 @@
+.main {
+    flex:1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.settings__container {
+    display: flex;
+    flex-direction: column;
+}
+
