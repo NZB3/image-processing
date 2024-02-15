@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import './Canvas.css';
 function getMousePos(canvas, e) {
     const rect = canvas.getBoundingClientRect();
-    return {
-        x: Math.ceil((e.clientX - rect.left) / (rect.right - rect.left) * canvas.width),
-        y: Math.ceil((e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height)
-    }
+    const x = Math.ceil((e.clientX - rect.left) / (rect.right - rect.left) * canvas.width)
+    const y = Math.ceil((e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height)
+    if (x < 0 || y < 0) return {x: 0, y: 0};
+    return {x, y};
 }
 
 function getPixelData(ctx, x, y) {
@@ -32,7 +32,7 @@ export function Canvas({selectedFile, setPixelData, setCursorPosition}) {
 
     const pick = (e) => {
         const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', {willReadFrequently: true});
         const {x, y} = getMousePos(canvas, e);
         const pixelData = getPixelData(ctx, x, y);
         setPixelData(pixelData);

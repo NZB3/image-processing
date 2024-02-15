@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import OpenButton from "../ui/OpenButton/OpenButton";
+import OpenButton from "../OpenButton/OpenButton";
 
 function Header({ setSelectedFile }) {
     return (
