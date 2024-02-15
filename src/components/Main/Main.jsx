@@ -9,9 +9,7 @@ function Main({selectedFile, setPixelData, setCursorPosition}) {
                     setCursorPosition={setCursorPosition}
                     setPixelData={setPixelData}
                 ></Canvas>
-                <div className='settings__container'>
 
-                </div>
             </main>
         )
     }
