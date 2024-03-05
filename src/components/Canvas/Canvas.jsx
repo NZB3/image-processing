@@ -1,5 +1,66 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import './Canvas.css';
+
+export function Canvas({selectedImage, setPixelData}) {
+    const canvasRef = React.createRef();
+
+    useEffect(() => {
+        if (!selectedImage) {
+            clearCanvas(canvasRef.current);
+            return;
+        }
+
+        drawImage(selectedImage, canvasRef);
+    }, [selectedImage, canvasRef]);
+
+    const handleMouseMove = (e) => {
+        if (!selectedImage) return;
+        const pixelData = pick(e);
+        setPixelData(pixelData);
+    }
+
+    return (
+        <div className="canvas__container">
+            <canvas className='canvas'
+                    id='canvas'
+                    ref={canvasRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={() => clearPixelData(setPixelData)}
+            >
+            </canvas>
+        </div>
+    )
+}
+
+function clearPixelData (setPixelData) {
+    setPixelData({color: null, position: null});
+}
+
+function clearCanvas(canvas) {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+function drawImage(image, canvasRef) {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
+
+    ctx.drawImage(image, 0, 0);
+
+    canvasRef.current = canvas;
+
+}
+
+function pick(e) {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
+    const position = getMousePos(canvas, e);
+    const color = getColor(ctx, position.x, position.y);
+    return {
+        color: {red: color[0], green: color[1], blue: color[2]},
+        position: {x: position.x, y: position.y}
+    }
+}
+
 function getMousePos(canvas, e) {
     const rect = canvas.getBoundingClientRect();
     let x =  Math.ceil((e.clientX - rect.left) / (rect.right - rect.left) * canvas.width)
@@ -9,46 +70,10 @@ function getMousePos(canvas, e) {
     return {x, y}
 }
 
-function getPixelData(ctx, x, y) {
-    return ctx.getImageData(x, y, 1, 1).data;
+function resize(imageSize) {
+
 }
-export function Canvas({selectedFile, setPixelData, setCursorPosition}) {
-    const canvasRef = React.createRef();
-    const [ width, setWidth ] = useState(0);
-    const [ height, setHeight ] = useState(0);
-    useEffect(() => {
-        if (!selectedFile) return;
 
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d', {willReadFrequently: true});
-        const image = new Image();
-        image.src = URL.createObjectURL(selectedFile);
-        image.onload = () => {
-            setWidth(image.width);
-            setHeight(image.height);
-            ctx.drawImage(image, 0, 0);
-        }
-        canvasRef.current = canvas;
-    }, [selectedFile, canvasRef]);
-
-    const pick = (e) => {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d', {willReadFrequently: true});
-        const {x, y} = getMousePos(canvas, e);
-        const pixelData = getPixelData(ctx, x, y);
-        setPixelData(pixelData);
-        setCursorPosition({x, y});
-    }
-    return (
-        <div className="canvas__container">
-            <canvas className='canvas'
-                    id='canvas'
-                    ref={canvasRef}
-                    width={width}
-                    height={height}
-                    onMouseMove={pick}
-            >
-            </canvas>
-        </div>
-    )
+function getColor(ctx, x, y) {
+    return ctx.getImageData(x, y, 1, 1).data;
 }

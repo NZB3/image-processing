@@ -8,6 +8,11 @@
 
 }
 
+.workspace{
+    display: flex;
+    flex: 1;
+}
+
 .settings__container {
     display: flex;
     flex-direction: column;
