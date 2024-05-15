@@ -1,30 +1,33 @@
 import {useEffect, useState} from "react";
 import './SizeSlider.css';
 
-export function SizeSlider({show, setImageSize}) {
-    const [size, setSize] = useState(100);
+export function SizeSlider({show, setImageScale, scale}) {
+    const [value, setValue] = useState(100);
 
     useEffect(() => {
         if (!show) {
-            setSize(100);
+            setValue(scale*100);
         }
-    }, [show])
+    }, [show, scale])
+
+    useEffect(() => {
+        setImageScale(value/100);
+    }, [value, setImageScale]);
 
     const handleSizeChange = (e) => {
-        setSize(e.target.value);
-        setImageSize({sizePercentage: size});
+        setValue(e.target.value);
     }
 
     if (show) {
         return (
             <>
                 <div className='size-slider'>
-                    <label htmlFor="size-slider__input">{size}%</label>
+                    <label htmlFor="size-slider__input">{value}%</label>
                     <input
                         type="range"
                         min="1"
                         max="200"
-                        value={size}
+                        value={value}
                         className="size-slider__input"
                         onChange={handleSizeChange}
                     />

@@ -3,9 +3,20 @@ import "./Header.css";
 import OpenButton from "./OpenButton/OpenButton";
 import {ImageURLInput} from "./ImageURLInput/ImageURLInput";
 import {ClearButton} from "./ClearButton/ClearButton";
+import {EditButton} from "./EditButton/EditButton";
 
-function Header({selectedImage, setSelectedImage}) {
+function Header({setSelectedImage, setOpenEditor, selectedImage}) {
     const [clear, setClear] = React.useState(false);
+    const [showEditButton, setShowEditButton] = React.useState(false);
+
+    useEffect(() => {
+        if (selectedImage) {
+            setShowEditButton(true);
+        } else {
+            setShowEditButton(false);
+        }
+    }, [selectedImage]);
+
     useEffect(() => {
         if (clear) {
             setClear(false);
@@ -19,6 +30,8 @@ function Header({selectedImage, setSelectedImage}) {
                     <ImageURLInput  setSelectedImage={setSelectedImage} clear={clear}/>
                     <ClearButton    setSelectedImage={setSelectedImage} setClear={setClear}/>
                 </div>
+
+                <EditButton setOpenEditor={setOpenEditor} show={showEditButton}></EditButton>
             </div>
         </header>
     )

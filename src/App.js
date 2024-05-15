@@ -8,20 +8,19 @@ import 'normalize.css';
 export default function App() {
     const [selectedImage, setImage] = useState(null);
     const [pixelData, setPixelData] = useState(null);
-    const [imageSettings, setImageSettings] = useState({
-        sizePercentage: 100,
-        width: 0,
-        height: 0,
-    });
+    const [openEditor, setOpenEditor] = useState(false);
+    const [scale, setScale] = useState(1);
   return (
     <div className='app'>
-        <Header setSelectedImage={setImage} selectedImage={selectedImage}/>
+        <Header setSelectedImage={setImage} selectedImage={selectedImage} setOpenEditor={setOpenEditor}/>
         <Workspace selectedImage={selectedImage}
                    setPixelData={setPixelData}
-                   setImageSettings={setImageSettings}
-                   imageSettings={imageSettings}
+                   scale={scale}
+                   openEditor={openEditor}
+                   setOpenEdit={setOpenEditor}
+                   setScale={setScale}
         />
-        <Footer pixelData={pixelData} selectedImage={selectedImage} setImageSettings={setImageSettings}/>
+        <Footer scale={scale} pixelData={pixelData} selectedImage={selectedImage} setImageScale={setScale}/>
     </div>
   );
 }

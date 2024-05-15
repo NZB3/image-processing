@@ -1,11 +1,11 @@
-export function ClearButton(props) {
+export function ClearButton({setSelectedImage, setClear}) {
     return (
         <>
             <button
                 className="clear-button"
                 onClick={() => {
-                    props.setSelectedImage(null);
-                    props.setClear(true)
+                    setSelectedImage(null);
+                    setClear(true)
                 }}
             >
                 Clear
