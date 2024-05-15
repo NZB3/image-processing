@@ -1,21 +1,26 @@
 import React, {useState} from 'react';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import Main from "./components/Main/Main";
+import Workspace from "./components/Workspace/Workspace";
 import './App.css';
 import 'normalize.css';
 
-function App() {
-    const [selectedFile, setSelectedFile] = useState(null);
+export default function App() {
+    const [selectedImage, setImage] = useState(null);
     const [pixelData, setPixelData] = useState(null);
-    const [cursorPosition, setCursorPosition] = useState({x: 0, y: 0});
+    const [openEditor, setOpenEditor] = useState(false);
+    const [scale, setScale] = useState(1);
   return (
     <div className='app'>
-        <Header setSelectedFile={setSelectedFile}/>
-        <Main selectedFile={selectedFile} setPixelData={setPixelData} setCursorPosition={setCursorPosition}/>
-        <Footer pixelData={pixelData} selectedFile={selectedFile} cursorPosition={cursorPosition}/>
+        <Header setSelectedImage={setImage} selectedImage={selectedImage} setOpenEditor={setOpenEditor}/>
+        <Workspace selectedImage={selectedImage}
+                   setPixelData={setPixelData}
+                   scale={scale}
+                   openEditor={openEditor}
+                   setOpenEdit={setOpenEditor}
+                   setScale={setScale}
+        />
+        <Footer scale={scale} pixelData={pixelData} selectedImage={selectedImage} setImageScale={setScale}/>
     </div>
   );
 }
-
-export default App;
