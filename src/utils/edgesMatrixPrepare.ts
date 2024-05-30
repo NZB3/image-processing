@@ -1,6 +1,6 @@
 export default function edgeMatrixPrepare(imageMatrix: number[][], width: number, height: number) {
   width = width * 4;
-  let newImageMatrix: number[][] = [];
+  const newImageMatrix: number[][] = [];
 
   for (let y = 1; y <= height + 2; y++) {
       newImageMatrix[y] = [];

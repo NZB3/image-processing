@@ -5,7 +5,7 @@
   "version": "0.9.0",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",

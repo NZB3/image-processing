@@ -29,6 +29,7 @@ const SideMenu = ({
   return (
     <>
       <div className="side-menu">
+
       {children}
       <div className="tools">
         <IconButton

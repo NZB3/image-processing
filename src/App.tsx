@@ -149,7 +149,7 @@ function App() {
   const colorChange = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (currentTool !== 1) return;
     const {p, x, y} = getPixelInfo(e);
-    if (e.ctrlKey) {
+    if (e.shiftKey) {
       return setColor2({
         rgb: [p[0], p[1], p[2]],
         x: x,
@@ -269,18 +269,18 @@ function App() {
   return (
       <>
         <div className="app">
-          <div className="container">
-            <div className="menu-panel">
+            <header className="header">
+              <Button className="download" type="primary" onClick={downloadImage}>
+                Сохранить
+              </Button>
               <Button className="upload" type="primary" onClick={() => openModal(
                   "Загрузить изображение",
                   <Tabs defaultActiveKey="1" items={tabsItemsOnFunc(uploadImageToCanvas)}/>
               )}>
                 Загрузить изображение
               </Button>
-              <Button className="download" type="primary" onClick={downloadImage}>
-                Сохранить
-              </Button>
-            </div>
+            </header>
+
             <div className="work-panel">
               {currentTool === 0
                   ?
@@ -370,7 +370,6 @@ function App() {
               scale={scale}
               onSliderChange={onSliderChange}
           />
-        </div>
         <Modal
             title={modal.title}
             open={modal.show}

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { InputNumber, Button, Checkbox, Select } from 'antd';
+import {useEffect, useRef, useState} from 'react';
+import {Button, Checkbox, InputNumber, Select} from 'antd';
 import getCanvasNCtx from '../../utils/getCanvasNCtx';
 import './FilterModal.css';
 import makeImageMatrix from '../../utils/makeImageMatrix';
@@ -114,9 +114,7 @@ const FilterModal = ({
         pos += 4;
       }
     }
-    const tempImageData = new ImageData(newImageData, canvas.width, canvas.height);
-
-    return tempImageData;
+    return new ImageData(newImageData, canvas.width, canvas.height);
   }
 
   const renderPreview = () => {

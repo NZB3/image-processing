@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               token: {
                   // Seed Token
                   colorPrimary: '#F4801A',
-                  borderRadius: 100,
+                  borderRadius: 2,
 
                   // Alias Token
                   colorBgContainer: '#ffffff',
