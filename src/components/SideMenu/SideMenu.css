@@ -1,0 +1,14 @@
+.tools {
+  margin: 5px 0;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
